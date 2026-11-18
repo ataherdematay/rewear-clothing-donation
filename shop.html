@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rack · ReWear</title>
+<meta name="description" content="Browse donated clothes by size, season and condition. Free for verified families, small prices in the outlet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=2">
+<link rel="stylesheet" href="css/pages.css?v=2">
+</head>
+<body data-page="shop" id="top">
+<div data-head></div>
+<main id="main">
+  <section class="page-top">
+    <h1 class="rise">The Rack</h1>
+    <p class="lead rise" style="--d:1">Everything here was donated and sorted by hand. Families request for free; anyone can buy from the outlet.</p>
+  </section>
+
+  <section class="shop" aria-label="Browse clothes">
+    <div class="modes" role="tablist" aria-label="Which rack" data-modes>
+      <button role="tab" data-mode="" aria-selected="true">Everything</button>
+      <button role="tab" data-mode="free" aria-selected="false">Free for families</button>
+      <button role="tab" data-mode="outlet" aria-selected="false">Outlet</button>
+    </div>
+
+    <form class="filters" data-filters>
+      <div class="field"><label for="f-q">Search</label><input id="f-q" name="q" type="search" placeholder="Coat, jeans, RW-2412…"></div>
+      <div class="field"><label for="f-type">Garment</label><select id="f-type" name="type"><option value="">Any garment</option></select></div>
+      <div class="field"><label for="f-size">Size</label><select id="f-size" name="size"><option value="">Any size</option></select></div>
+      <div class="field"><label for="f-season">Season</label><select id="f-season" name="season"><option value="">Any season</option><option value="winter">Winter</option><option value="summer">Summer</option><option value="all-year">All year</option></select></div>
+      <div class="field"><label for="f-gender">For</label><select id="f-gender" name="gender"><option value="">Anyone</option><option value="women">Women</option><option value="men">Men</option><option value="unisex">Unisex</option><option value="kids">Kids</option></select></div>
+      <div class="field"><label for="f-cond">Condition</label><select id="f-cond" name="condition"><option value="">Any condition</option><option value="like new">Like new</option><option value="good">Good</option><option value="worn">Worn</option></select></div>
+    </form>
+
+    <div class="results-bar"><p data-count aria-live="polite"></p><button class="link-btn" type="button" data-clear>Clear filters</button></div>
+    <ul class="grid" data-grid></ul>
+    <div class="empty" data-empty hidden>
+      <h2>Nothing on the rack matches yet.</h2>
+      <p>Clear a filter, or if you are a registered family, post what you need and we will match it when it comes in.</p>
+      <button class="btn" type="button" data-need-open>Post a need</button>
+    </div>
+
+    <div class="need-band">
+      <div>
+        <h2>Can't find the right size?</h2>
+        <p>Registered families can post a need. When a matching garment is sorted, a volunteer reserves it for you.</p>
+      </div>
+      <button class="btn" type="button" data-need-open>Post a need</button>
+    </div>
+  </section>
+</main>
+
+<!-- garment detail -->
+<div class="sheet" data-sheet hidden>
+  <div class="sheet-back" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <button class="close" type="button" data-close aria-label="Close">Close</button>
+    <div data-sheet-body></div>
+  </div>
+</div>
+
+<!-- basket -->
+<div class="sheet" data-basket hidden>
+  <div class="sheet-back" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="basket-title">
+    <button class="close" type="button" data-close aria-label="Close">Close</button>
+    <div data-basket-body></div>
+  </div>
+</div>
+
+<!-- post a need -->
+<div class="sheet" data-need hidden>
+  <div class="sheet-back" data-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="need-title">
+    <button class="close" type="button" data-close aria-label="Close">Close</button>
+    <div data-need-body></div>
+  </div>
+</div>
+
+<div data-foot></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/site.js?v=2"></script>
+<script src="js/shop.js?v=2"></script>
+</body>
+</html>

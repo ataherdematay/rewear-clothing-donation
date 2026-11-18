@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in · ReWear</title>
+<meta name="description" content="Log in to follow your donations, request clothes as a family, or manage ReWear as an admin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=2">
+<link rel="stylesheet" href="css/pages.css?v=2">
+</head>
+<body data-page="login" id="top">
+<div data-head></div>
+<main id="main" class="auth">
+  <div class="auth-card tag">
+    <h1 class="rise" data-title>Welcome back</h1>
+    <p class="lead rise" style="--d:1" data-lead>Log in to follow your tags, request clothes or run the hubs.</p>
+
+    <div class="auth-tabs rise" style="--d:2" role="tablist" aria-label="Log in or register">
+      <button role="tab" id="tab-login" aria-selected="true" aria-controls="login-form" data-tab="login">Log in</button>
+      <button role="tab" id="tab-register" aria-selected="false" aria-controls="register-form" data-tab="register">Register</button>
+    </div>
+
+    <form id="login-form" role="tabpanel" aria-labelledby="tab-login" data-login novalidate>
+      <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="l-pw">Password</label><div class="pw"><input id="l-pw" name="password" type="password" autocomplete="current-password" required><button type="button" data-show aria-controls="l-pw">Show</button></div></div>
+      <p class="field err" role="alert" data-lerr></p>
+      <button class="btn" type="submit">Log in</button>
+    </form>
+
+    <form id="register-form" role="tabpanel" aria-labelledby="tab-register" data-register hidden novalidate>
+      <div class="field"><span class="label" id="role-label">I want to</span>
+        <div class="choice" role="radiogroup" aria-labelledby="role-label">
+          <label><input type="radio" name="role" value="donor" checked><span>Give clothes</span></label>
+          <label><input type="radio" name="role" value="family"><span>Receive clothes</span></label>
+        </div>
+      </div>
+      <div class="field"><label for="r-name">Full name</label><input id="r-name" name="name" autocomplete="name" required></div>
+      <div class="field" data-household hidden><label for="r-house">Your household</label><input id="r-house" name="household" placeholder="For example: family of four, Neukölln" aria-describedby="house-hint"><span class="hint" id="house-hint">A volunteer checks each household once. Donors only ever see the district.</span></div>
+      <div class="field"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="r-pw">Password</label><div class="pw"><input id="r-pw" name="password" type="password" autocomplete="new-password" required aria-describedby="pw-hint"><button type="button" data-show aria-controls="r-pw">Show</button></div><span class="hint" id="pw-hint">At least 8 characters.</span></div>
+      <p class="field err" role="alert" data-rerr></p>
+      <button class="btn" type="submit">Create account</button>
+    </form>
+
+    <div class="demo rise" style="--d:3">
+      <h2>Try a demo account</h2>
+      <div class="demo-list" data-demo>
+        <button type="button" data-email="admin@rewear.org" data-pw="admin123"><b>Mira, admin</b><span>Sorts donations, matches requests</span><i>Use</i></button>
+        <button type="button" data-email="donor@rewear.org" data-pw="donor123"><b>Lena, donor</b><span>Follows the tags of her donations</span><i>Use</i></button>
+        <button type="button" data-email="family@rewear.org" data-pw="family123"><b>Aylin, family</b><span>Requests free clothes for her children</span><i>Use</i></button>
+      </div>
+    </div>
+  </div>
+  <figure class="auth-photo tag" style="margin:0">
+    <img src="assets/img/hero-rack.jpg" alt="A rail of donated coats and denim, each with a paper swing tag" width="1450" height="1800">
+    <p>Every account sees the same tags: donors where their clothes went, families what fits, admins what waits.</p>
+  </figure>
+</main>
+<script src="js/data.js?v=2"></script>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/site.js?v=2"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var params = new URLSearchParams(location.search);
+  var next = params.get('next');
+  function dest(u) { var home = u.role === 'admin' ? 'admin.html' : 'account.html'; if (!next || !/^[a-z]+\.html(#\w+)?$/.test(next)) return home; return next.indexOf('admin.html') === 0 && u.role !== 'admin' ? home : next; }
+  function tab(t) {
+    document.querySelectorAll('[data-tab]').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.tab === t); });
+    $('[data-login]').hidden = t !== 'login';
+    $('[data-register]').hidden = t !== 'register';
+    $('[data-title]').textContent = t === 'login' ? 'Welcome back' : 'Join ReWear';
+    $('[data-lead]').textContent = t === 'login' ? 'Log in to follow your tags, request clothes or run the hubs.' : 'Give clothes and follow them, or register your household to receive them.';
+  }
+  document.querySelector('.auth-tabs').addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) tab(b.dataset.tab); });
+  if (params.get('role') === 'family') { tab('register'); document.querySelector('input[value="family"]').checked = true; $('[data-household]').hidden = false; }
+  if (params.get('tab') === 'register') tab('register');
+
+  document.addEventListener('click', function (e) {
+    var s = e.target.closest('[data-show]'); if (!s) return;
+    var inp = document.getElementById(s.getAttribute('aria-controls'));
+    var show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password'; s.textContent = show ? 'Hide' : 'Show';
+  });
+  $('[data-register]').addEventListener('change', function (e) { if (e.target.name === 'role') $('[data-household]').hidden = e.target.value !== 'family'; });
+
+  $('[data-login]').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target;
+    if (!f.email.value.trim()) { $('[data-lerr]').textContent = 'Enter the email address you registered with.'; f.email.focus(); return; }
+    if (!f.password.value) { $('[data-lerr]').textContent = 'Enter your password.'; f.password.focus(); return; }
+    var r = RW.login(f.email.value, f.password.value);
+    if (r.error) { $('[data-lerr]').textContent = r.error; return; }
+    $('[data-lerr]').textContent = '';
+    RWtoast('Logged in as ' + r.user.name + '.');
+    setTimeout(function () { location.href = dest(r.user); }, 500);
+  });
+  $('[data-register]').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target;
+    var role = f.role.value;
+    if (!f.name.value.trim()) { $('[data-rerr]').textContent = 'Enter your full name.'; f.name.focus(); return; }
+    if (role === 'family' && !f.household.value.trim()) { $('[data-rerr]').textContent = 'Describe your household in a few words, for example “family of four, Neukölln”.'; f.household.focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test(f.email.value)) { $('[data-rerr]').textContent = 'Enter an email address like name@example.org.'; f.email.focus(); return; }
+    if (f.password.value.length < 8) { $('[data-rerr]').textContent = 'Use a password of at least 8 characters.'; f.password.focus(); return; }
+    var r = RW.register({ name: f.name.value.trim(), email: f.email.value.trim(), password: f.password.value, role: role, household: f.household.value.trim() });
+    if (r.error) { $('[data-rerr]').textContent = r.error; return; }
+    RWtoast('Account created. Welcome, ' + r.user.name.split(' ')[0] + '.');
+    setTimeout(function () { location.href = dest(r.user); }, 600);
+  });
+  $('[data-demo]').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    tab('login');
+    var f = $('[data-login]');
+    f.email.value = b.dataset.email; f.password.value = b.dataset.pw;
+    f.requestSubmit();
+  });
+})();
+</script>
+</body>
+</html>

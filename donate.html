@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donate · ReWear</title>
+<meta name="description" content="Register the clothes you want to give, drop them at a hub or book a pick-up, and follow each one by its tag. Or give money to a seasonal drive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=2">
+<link rel="stylesheet" href="css/pages.css?v=2">
+</head>
+<body data-page="donate" id="top">
+<div data-head></div>
+<main id="main">
+  <section class="page-top">
+    <h1 class="rise">Donate clothes</h1>
+    <p class="lead rise" style="--d:1">Tell us what you are giving, choose how it reaches us, and get a tag code for every piece.</p>
+  </section>
+
+  <section class="donate" aria-label="Register a donation">
+    <form class="wizard tag" data-wizard novalidate>
+
+      <div class="step on" data-step="0">
+        <h2>What are you giving?</h2>
+        <p>Choose a garment to add it. Then set its size, who it is for, the season and its condition.</p>
+        <div class="garment-pick" data-pick></div>
+        <ul class="added" data-added></ul>
+        <p class="field err" data-err0 role="alert"></p>
+        <div class="wizard-nav"><span class="muted" data-total>Nothing added yet</span><button class="btn" type="button" data-next>Next: how it reaches us</button></div>
+      </div>
+
+      <div class="step" data-step="1">
+        <h2>How does it reach us?</h2>
+        <div class="field"><span class="label" id="how-label">Drop-off or pick-up</span>
+          <div class="choice" role="radiogroup" aria-labelledby="how-label">
+            <label><input type="radio" name="how" value="drop" checked><span>I'll drop it at a hub</span></label>
+            <label><input type="radio" name="how" value="pickup"><span>Pick it up from me</span></label>
+          </div>
+        </div>
+        <div class="field" data-drop><label for="hub">Hub</label><select id="hub" name="hub"></select><span class="hint" data-hub-hours></span></div>
+        <div data-pickup hidden class="stack" style="margin:0">
+          <div class="field"><label for="addr">Address</label><input id="addr" name="addr" autocomplete="street-address" placeholder="Street and number, postcode"></div>
+          <div class="field"><label for="day">Day</label><input id="day" name="day" type="date"></div>
+          <p class="hint small muted">Pick-ups are for five garments or more.</p>
+        </div>
+        <p class="field err" data-err1 role="alert"></p>
+        <div class="wizard-nav"><button class="link-btn" type="button" data-back>Back</button><button class="btn" type="button" data-next>Next: your details</button></div>
+      </div>
+
+      <div class="step" data-step="2">
+        <h2>Who is giving?</h2>
+        <div class="field"><label for="d-name">Name</label><input id="d-name" name="name" autocomplete="name" placeholder="Or leave empty to give anonymously"></div>
+        <div class="field"><label for="d-email">Email</label><input id="d-email" name="email" type="email" autocomplete="email" aria-describedby="email-hint"><span class="hint" id="email-hint">We send the tag codes here, and a note when each garment finds a new owner.</span></div>
+        <label class="check"><input type="checkbox" name="drive" data-drive-box> <span data-drive-label>Count this towards the winter coat drive</span></label>
+        <p class="field err" data-err2 role="alert"></p>
+        <div class="wizard-nav"><button class="link-btn" type="button" data-back>Back</button><button class="btn" type="submit">Register donation</button></div>
+      </div>
+
+      <div class="step" data-step="3">
+        <h2>Thank you. Here are your tags.</h2>
+        <div data-receipt></div>
+        <div class="wizard-nav"><a class="link" href="index.html#track">Open the tracker</a><button class="btn" type="button" data-again>Register another donation</button></div>
+      </div>
+      <ol class="steps" data-steps aria-label="Progress">
+        <li class="on">What</li><li>How</li><li>Who</li><li>Tags</li>
+      </ol>
+    </form>
+
+    <aside class="side">
+      <div class="photo tag"><img src="assets/img/step-donate.jpg" alt="Hands placing a folded sweater into a donation box" width="1450" height="1800" loading="lazy" style="object-position:50% 40%"></div>
+      <div class="box">
+        <h2>What we can take</h2>
+        <ul>
+          <li>Clean clothes someone could wear tomorrow</li>
+          <li>Shoes in pairs, tied together</li>
+          <li>Coats and jackets with working zips</li>
+          <li>Underwear and socks only when new</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h2>What happens next</h2>
+        <p style="margin-top:12px">A volunteer sorts your clothes within two days. Each tag then shows whether it went to a family, to the outlet or, if it was too worn, to textile recycling.</p>
+      </div>
+    </aside>
+  </section>
+
+  <section class="money" id="money" aria-labelledby="money-title">
+    <div>
+      <h2 id="money-title" class="rise">Give money</h2>
+      <p class="lead rise" style="--d:1">Sorting, storage and transport cost money. Choose what your gift pays for.</p>
+      <div class="photo tag rise" style="--d:2;--c:30px;overflow:hidden;margin-top:36px;aspect-ratio:4/3"><img src="assets/rack.jpg" alt="A clothes rail in a bright room" width="1600" height="1027" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
+    </div>
+    <form class="money-form tag stack" data-money novalidate style="margin-top:0">
+      <div class="field"><span class="label" id="amt-label">Amount</span>
+        <div class="choice" role="radiogroup" aria-labelledby="amt-label" data-amt>
+          <label><input type="radio" name="amount" value="5"><span>€5</span></label>
+          <label><input type="radio" name="amount" value="15" checked><span>€15</span></label>
+          <label><input type="radio" name="amount" value="30"><span>€30</span></label>
+          <label><input type="radio" name="amount" value="50"><span>€50</span></label>
+          <label><input type="radio" name="amount" value="other"><span>Other</span></label>
+        </div>
+      </div>
+      <div class="field" data-other hidden><label for="m-other">Your amount in euros</label><input id="m-other" name="other" inputmode="decimal" placeholder="25"></div>
+      <p class="impact" data-impact>€15 sorts and hangs about 30 garments.</p>
+      <div class="field"><label for="m-camp">It pays for</label><select id="m-camp" name="campaign"><option value="general">Wherever it is needed most</option></select></div>
+      <div class="field"><label for="m-name">Name</label><input id="m-name" name="name" autocomplete="name" placeholder="Leave empty to give anonymously"></div>
+      <label class="check"><input type="checkbox" name="monthly"> Give this every month</label>
+      <p class="field err" data-merr role="alert"></p>
+      <button class="btn" type="submit" data-msubmit>Pledge €15</button>
+      <p class="small muted">This prototype records a pledge only. No card details are taken; payment would be connected before launch.</p>
+    </form>
+  </section>
+</main>
+<div data-foot></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/site.js?v=2"></script>
+<script src="js/donate.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · ReWear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css?v=2">
+<script src="js/data.js?v=2"></script>
+<script>(function () { var u = RW.session(); if (!u || u.role !== 'admin') location.replace('login.html?next=admin.html'); })();</script>
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="Admin">
+    <a class="brand" href="index.html" aria-label="ReWear site">
+      <svg class="mk" viewBox="0 0 22 30" aria-hidden="true"><path fill="#1f6b3d" fill-rule="evenodd" d="M6 0h10l6 6v24H0V6Zm5 5.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5Z"/><rect x="4" y="16" width="14" height="3" fill="#f4d96c"/><rect x="4" y="21" width="9" height="3" fill="#f4d96c"/></svg>
+      <span><b>ReWear</b><span>Berlin hubs · admin</span></span>
+    </a>
+    <nav data-nav></nav>
+    <div class="side-foot">
+      <div class="who"><span class="avatar" data-avatar></span><span data-who></span></div>
+      <a href="index.html">Open the public site</a>
+      <button type="button" data-reset>Reset demo data</button>
+      <button type="button" data-logout>Log out</button>
+    </div>
+  </aside>
+  <div>
+    <div class="topbar">
+      <svg viewBox="0 0 22 30" width="20" height="28" aria-hidden="true"><path fill="#1f6b3d" fill-rule="evenodd" d="M6 0h10l6 6v24H0V6Zm5 5.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5Z"/></svg>
+      <label class="sr-only" for="m-nav" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Section</label>
+      <select id="m-nav" class="in" data-mnav></select>
+      <button class="btn small" type="button" data-logout>Log out</button>
+    </div>
+    <main class="main" id="main" data-view></main>
+  </div>
+</div>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/charts.js?v=2"></script>
+<script src="js/admin.js?v=2"></script>
+</body>
+</html>

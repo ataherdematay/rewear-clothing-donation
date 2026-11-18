@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReWear · Clothing donation</title>
+<meta name="description" content="ReWear connects people who give away good clothes with families who need them, and sells the rest second-hand to fund the work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=2">
+</head>
+<body data-page="home" id="top">
+<div data-head></div>
+
+<main id="main">
+  <!-- hero: the swing tag beside the rack -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-card tag">
+      <div class="hole-dot" aria-hidden="true"></div>
+      <div class="barcode" aria-hidden="true" data-barcode></div>
+      <h1 id="hero-title" class="rise">Your clothes, worn again.</h1>
+      <p class="sub rise" style="--d:1">ReWear takes the clothes you no longer wear, sorts them by size and season, and passes them to families who need them.</p>
+      <div class="actions rise" style="--d:2">
+        <a class="btn" href="donate.html">Donate clothes</a>
+        <a class="link" href="shop.html">Find clothes</a>
+      </div>
+      <nav class="hero-links" aria-label="Quick links">
+        <a href="#track">Track a tag</a><a href="#drives">Winter coat drive</a><a href="donate.html#money">Give money</a>
+      </nav>
+    </div>
+    <figure class="hero-photo tag" style="margin:0">
+      <video class="slide on" autoplay muted loop playsinline poster="assets/video/hero-rack-poster.jpg" aria-label="A rail of donated coats and denim, each with a paper swing tag" width="1030" height="1280"><source src="assets/video/hero-rack-loop.mp4" type="video/mp4"></video>
+      <img class="slide" src="assets/img/step-sort.jpg" alt="Volunteers sorting donated clothes into green crates" width="1450" height="1800">
+      <img class="slide" src="assets/img/step-receive.jpg" alt="A girl tries on a mustard winter coat while her mother adjusts the collar" width="1450" height="1800">
+      <figcaption data-caption>Every donated coat carries its own tag</figcaption>
+    </figure>
+  </section>
+
+  <!-- how it works -->
+  <section class="section how" id="how" aria-labelledby="how-title">
+    <h2 id="how-title" class="rise">How ReWear works</h2>
+    <p class="intro lead rise" style="--d:1">Four steps from your wardrobe to someone else's, and every garment carries a tag you can follow.</p>
+    <div class="stage rise" style="--d:1">
+      <div class="tile tag"><img src="assets/img/step-donate.jpg" alt="Hands placing a folded sweater into a donation box" width="1450" height="1800" loading="lazy"></div>
+      <h3>Donate</h3>
+      <p>Register what you give, then drop it at a hub or book a pick-up.</p>
+    </div>
+    <div class="stage rise" style="--d:2">
+      <div class="tile tag"><img src="assets/img/step-sort.jpg" alt="Volunteers sorting clothes by size into green crates" width="1450" height="1800" loading="lazy"></div>
+      <h3>Sorted</h3>
+      <p>Volunteers check each piece and file it by size, season, gender and condition.</p>
+    </div>
+    <div class="stage rise" style="--d:3">
+      <div class="tile tag"><img src="assets/img/outlet-shelf.jpg" alt="Green shelves of folded sweaters and coats on hangers" width="1800" height="1004" loading="lazy" style="object-position:35% 50%"></div>
+      <h3>Browsed and requested</h3>
+      <p>Verified families request what fits. Everything else goes to the second-hand outlet.</p>
+    </div>
+    <div class="stage rise" style="--d:4">
+      <div class="tile tag"><img src="assets/img/step-receive.jpg" alt="A girl tries on a mustard winter coat while her mother adjusts the collar" width="1450" height="1800" loading="lazy"></div>
+      <h3>Handed over</h3>
+      <p>The family collects it, and the donor sees on the tag where it went.</p>
+    </div>
+  </section>
+
+  <!-- the rack: live tag tracker -->
+  <section class="section rack" id="track" aria-labelledby="rack-title">
+    <div class="rack-list">
+      <h2 id="rack-title">Every garment carries a tag</h2>
+      <ul data-rack-list></ul>
+    </div>
+    <div class="rack-stage">
+      <div class="big-tag tag" data-big-tag>
+        <span class="string" aria-hidden="true"></span>
+        <span class="tag-hole-dot" aria-hidden="true"></span>
+        <div data-glyph></div>
+        <span class="code" data-code></span>
+      </div>
+    </div>
+    <div class="rack-fact" aria-live="polite">
+      <h3 data-fact-title>Choose a garment</h3>
+      <dl data-fact></dl>
+      <ol class="journey" data-journey></ol>
+      <form class="track-form" data-track-form>
+        <label class="sr-only" for="track-code">Tag code</label>
+        <input id="track-code" name="code" placeholder="Your tag code, e.g. RW-2412" autocomplete="off" aria-describedby="track-msg">
+        <button class="btn" type="submit">Track</button>
+      </form>
+      <p class="track-msg" id="track-msg" data-track-msg></p>
+    </div>
+  </section>
+
+  <!-- stats -->
+  <section class="section stats" aria-labelledby="stats-title">
+    <h2 id="stats-title" class="rise">What the rack has done this autumn</h2>
+    <div class="stat a tag rise" style="--d:1"><div class="fig"><span data-count="kg">0</span><small>kg</small></div><p>of clothing kept in use instead of thrown away, counted from every tag that was not recycled.</p></div>
+    <div class="stat b tag rise" style="--d:2"><div class="fig" data-count="rehomed">0</div><p>garments handed over to a new owner</p></div>
+    <div class="stat c tag rise" style="--d:3"><div class="fig" data-count="families">0</div><p>households helped through requests</p></div>
+    <p class="note">These are demo figures, computed live from the sample data in this prototype. Sort a donation in the admin panel and they change.</p>
+  </section>
+
+  <!-- outlet preview -->
+  <section class="section" id="outlet" aria-labelledby="outlet-title">
+    <div class="outlet-head">
+      <h2 id="outlet-title" class="h2 rise">From the outlet this week</h2>
+      <p class="rise" style="--d:1">Clothes that no family has requested go on sale at small prices. Every euro pays for sorting, storage and transport. <a class="link" href="shop.html?mode=outlet">Open the outlet</a></p>
+    </div>
+    <div data-outlet></div>
+  </section>
+
+  <!-- seasonal drives -->
+  <section class="section drives" id="drives" aria-labelledby="drives-title">
+    <div>
+      <h2 id="drives-title" class="h2 rise">Seasonal drives</h2>
+      <p class="lead rise" style="--d:1">Need changes with the weather. Three times a year we collect for one thing in particular.</p>
+      <figure class="drive-film tag rise" style="--d:2"><video autoplay muted loop playsinline preload="metadata" poster="assets/video/clothing-drive-poster.jpg" aria-label="Volunteers in green aprons at an outdoor clothing drive" width="1600" height="900"><source src="assets/video/clothing-drive-loop.mp4" type="video/mp4"></video></figure>
+    </div>
+    <div data-drives></div>
+  </section>
+
+  <!-- about: problem and solution -->
+  <section class="about tag" aria-labelledby="about-title">
+    <h2 id="about-title" class="rise">Good clothes, wrong wardrobe.</h2>
+    <div class="text">
+      <div class="rise" style="--d:1">
+        <h3>The problem</h3>
+        <p>Many people throw away clothes that are still in good condition. At the same time, low-income families struggle to afford clothing. Textile waste grows, and so does inequality.</p>
+      </div>
+      <div class="rise" style="--d:2">
+        <h3>Our answer</h3>
+        <p>ReWear connects people who want to give clothes with people who need them. Donate, browse and request reusable clothing on one simple platform, and see where every piece ends up.</p>
+      </div>
+      <a class="btn rise" style="--d:3" href="login.html?role=family">Register as a family</a>
+    </div>
+    <div class="shot tag"><img src="assets/market.jpg" alt="Second-hand clothes laid out at a market stall" width="1600" height="1200" loading="lazy"></div>
+  </section>
+
+  <!-- what we learned -->
+  <section class="section learned" id="learned" aria-labelledby="learned-title">
+    <h2 id="learned-title" class="rise">We learned from four others</h2>
+    <ul class="values rise" style="--d:1" aria-label="Our values">
+      <li class="tag-side">Transparency</li><li class="tag-side">Accessibility</li><li class="tag-side">Community</li><li class="tag-side">Sustainability</li>
+    </ul>
+    <div class="orgs">
+      <article class="org rise">
+        <h3><a href="https://www.care-for-rare.org/en/donate-clothes-and-help/" rel="noopener">Care-for-Rare Foundation</a></h3>
+        <dl><dt>Strength</dt><dd>Easy online donations and free shipping.</dd></dl>
+        <dl><dt>Weakness</dt><dd>Donors cannot choose who receives their clothes.</dd></dl>
+        <dl class="answer"><dt>What ReWear does</dt><dd>Matches each garment to a real request and shows it on the tag.</dd></dl>
+      </article>
+      <article class="org rise">
+        <h3><a href="https://www.tdh.de/en/take-action/announcements-dates/appointments/appointment/browse-second-hand-shops-and-donate" rel="noopener">Terre des Hommes</a></h3>
+        <dl><dt>Strength</dt><dd>Clothing reuse and support for the local community.</dd></dl>
+        <dl><dt>Weakness</dt><dd>Needs physical shops and many volunteers.</dd></dl>
+        <dl class="answer"><dt>What ReWear does</dt><dd>Moves browsing and requesting online, so hubs only store and hand over.</dd></dl>
+      </article>
+      <article class="org rise">
+        <h3><a href="https://www.upcycle4better.com/recycling-around-the-world/germany" rel="noopener">Upcycle4Better</a></h3>
+        <dl><dt>Strength</dt><dd>Raises awareness and promotes textile reuse.</dd></dl>
+        <dl><dt>Weakness</dt><dd>Upcycling needs special skills and equipment.</dd></dl>
+        <dl class="answer"><dt>What ReWear does</dt><dd>Reuses clothes as they are and recycles only what cannot be worn.</dd></dl>
+      </article>
+      <article class="org rise">
+        <h3><a href="https://www.kleiderstiftung.de/en/" rel="noopener">Deutsche Kleiderstiftung</a></h3>
+        <dl><dt>Strength</dt><dd>Organised collection and charity partnerships.</dd></dl>
+        <dl><dt>Weakness</dt><dd>Storage, transport and sorting cost money.</dd></dl>
+        <dl class="answer"><dt>What ReWear does</dt><dd>Pays those costs from the outlet and from cash gifts.</dd></dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="section faq" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="rise">Questions people ask</h2>
+    <div class="drawer" data-faq></div>
+  </section>
+
+  <!-- give money -->
+  <section class="give" aria-labelledby="give-title">
+    <div class="flank-photo"><img src="assets/img/clothing-drive.jpg" alt="" style="object-position:30% 50%" width="1600" height="1070" loading="lazy"></div>
+    <div class="main tag">
+      <div class="give-text"><h2 id="give-title">Fund the next sort</h2>
+      <p>No clothes to give? Money pays for the hubs, the hangers and the van. Choose an amount and finish on the next page.</p></div>
+      <div class="give-act"><div class="amounts" role="group" aria-label="Amount" data-amounts>
+        <button type="button" aria-pressed="false" data-amt="5">€5</button>
+        <button type="button" aria-pressed="true" data-amt="15">€15</button>
+        <button type="button" aria-pressed="false" data-amt="30">€30</button>
+        <button type="button" aria-pressed="false" data-amt="50">€50</button>
+      </div>
+      <div class="row">
+        <a class="btn on-gold" href="donate.html?amount=15#money" data-give>Give €15</a>
+        <span data-give-note>€15 sorts and hangs about 30 garments.</span>
+      </div></div>
+    </div>
+    <div class="flank-colour"></div>
+  </section>
+</main>
+
+<div data-foot></div>
+
+<script src="js/data.js?v=2"></script>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/site.js?v=2"></script>
+<script src="js/home.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My account · ReWear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=2">
+<link rel="stylesheet" href="css/pages.css?v=2">
+<script src="js/data.js?v=2"></script>
+<script>if (!RW.session()) location.replace('login.html?next=account.html');</script>
+</head>
+<body data-page="account" id="top">
+<div data-head></div>
+<main id="main">
+  <section class="page-top"><h1 class="rise" data-hello>My account</h1><p class="lead rise" style="--d:1" data-intro></p></section>
+  <div class="acct">
+    <aside class="acct-side tag" data-card></aside>
+    <div class="acct-main" data-main></div>
+  </div>
+</main>
+<div data-foot></div>
+<script src="js/glyphs.js?v=2"></script>
+<script src="js/site.js?v=2"></script>
+<script>
+(function () {
+  var u = RW.session(); if (!u) return;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = RW.esc;
+  var STATUS = { received: 'Waiting to be sorted', sorted: 'On the rack', matched: 'Matched', delivered: 'Handed over', recycled: 'Recycled', open: 'Looking', pending: 'Waiting for hand-over', fulfilled: 'Collected', reserved: 'Reserved', ready: 'Ready to collect', collected: 'Collected' };
+  function row(g, right) {
+    return '<li><span class="r-thumb tag">' + RWglyph(g.type, g.colour, '') + '</span><span><b>' + esc(RW.label(g)) + ', size ' + esc(g.size) + '</b><span class="sub">' + right + '</span></span><span class="status ' + g.status + '">' + STATUS[g.status] + '</span></li>';
+  }
+  function render() {
+    u = RW.session();
+    $('[data-hello]').textContent = 'Hello, ' + u.name.split(' ')[0];
+    $('[data-intro]').textContent = u.role === 'family' ? 'Your requests and the clothes set aside for your household.' : u.role === 'admin' ? 'You are an admin. The admin panel has the full picture.' : 'Every garment you gave, and where it is now.';
+    var mine = RW.db.donations.filter(function (d) { return d.userId === u.id; });
+    var tags = [].concat.apply([], mine.map(function (d) { return d.tags; }));
+    var gs = tags.map(RW.garment).filter(Boolean);
+    var reqs = RW.db.requests.filter(function (q) { return q.userId === u.id; });
+    var cash = RW.db.cash.filter(function (c) { return c.name === u.name; });
+    var orders = RW.db.orders.filter(function (o) { return o.userId === u.id || o.buyer === u.name; });
+
+    $('[data-card]').innerHTML = '<h2>' + esc(u.name) + '</h2><dl>' +
+      '<dt>Account</dt><dd>' + ({ donor: 'Donor', family: 'Family', admin: 'Admin' })[u.role] + '</dd>' +
+      (u.household ? '<dt>Household</dt><dd>' + esc(u.household) + '</dd>' : '') +
+      '<dt>Email</dt><dd>' + esc(u.email) + '</dd>' +
+      '<dt>Since</dt><dd>' + RW.dateLong(u.joined) + '</dd>' +
+      (u.role === 'family' ? '<dt>Check</dt><dd>' + (u.verified ? 'Verified' : 'Waiting for a volunteer') + '</dd>' : '') +
+      (u.role === 'donor' ? '<dt>Given</dt><dd>' + gs.length + ' garments, ' + RW.euro(cash.reduce(function (s, c) { return s + c.amount; }, 0)) + '</dd>' : '') +
+      '</dl>' +
+      (u.role === 'admin' ? '<a class="btn" href="admin.html">Open the admin panel</a>' : u.role === 'family' ? '<a class="btn" href="shop.html?mode=free">Browse free clothes</a>' : '<a class="btn" href="donate.html">Donate more</a>') +
+      '<p style="margin-top:20px"><button class="link-btn" type="button" data-logout>Log out</button></p>';
+
+    var html = '';
+    if (u.role === 'family') {
+      html += '<section><h2>My requests</h2>' + (reqs.length ? '<ul class="rows">' + reqs.map(function (q) {
+        var g = q.tags[0] && RW.garment(q.tags[0]);
+        var sub = q.id + ', asked ' + RW.ago(q.date) + (g ? ', tag ' + g.tag : '');
+        return g ? row(g, sub).replace(/<span class="status [^"]+">[^<]+<\/span>/, '<span class="status ' + q.status + '">' + STATUS[q.status] + '</span>')
+          : '<li><span class="r-thumb tag">' + RWglyph(q.type, '#c7b870', '') + '</span><span><b>' + esc(q.need) + '</b><span class="sub">' + sub + '</span></span><span class="status ' + q.status + '">' + STATUS[q.status] + '</span></li>';
+      }).join('') + '</ul>' : '<p class="empty-row">No requests yet. <a href="shop.html?mode=free">Browse the free rack</a> or post a need there.</p>') + '</section>';
+    } else {
+      html += '<section><h2>My tags</h2>' + (gs.length ? '<ul class="rows">' + gs.map(function (g) {
+        var last = g.events[g.events.length - 1];
+        return row(g, '<a href="index.html?tag=' + g.tag + '#track">' + g.tag + '</a>, ' + esc(last.note) + ', ' + RW.ago(last.at));
+      }).join('') + '</ul>' : '<p class="empty-row">No donations on this account yet. <a href="donate.html">Register your first one</a> and its tags appear here.</p>') + '</section>';
+      html += '<section><h2>Money given</h2>' + (cash.length ? '<ul class="rows">' + cash.map(function (c) {
+        return '<li><span class="r-thumb tag"><b style="color:var(--paper-ink);margin-top:10px">€</b></span><span><b>' + RW.euro(c.amount) + (c.monthly ? ' a month' : '') + '</b><span class="sub">' + c.id + ', ' + RW.dateLong(c.date) + '</span></span><span class="status delivered">' + esc(c.campaign === 'general' ? 'General fund' : RW.campaign(c.campaign).name) + '</span></li>';
+      }).join('') + '</ul>' : '<p class="empty-row">No money gifts yet. <a href="donate.html#money">Fund the next sort</a>.</p>') + '</section>';
+    }
+    html += '<section><h2>Outlet reservations</h2>' + (orders.length ? '<ul class="rows">' + orders.map(function (o) {
+      var g = RW.garment(o.tags[0]);
+      return '<li><span class="r-thumb tag">' + RWglyph(g.type, g.colour, '') + '</span><span><b>' + o.id + ', ' + o.tags.length + (o.tags.length === 1 ? ' piece' : ' pieces') + ', ' + RW.euro(o.total) + '</b><span class="sub">' + esc(o.hub || 'Kreuzberg hub') + ', ' + RW.ago(o.date) + '</span></span><span class="status ' + o.status + '">' + STATUS[o.status] + '</span></li>';
+    }).join('') + '</ul>' : '<p class="empty-row">Nothing reserved. <a href="shop.html?mode=outlet">See the outlet</a>.</p>') + '</section>';
+    $('[data-main]').innerHTML = html;
+  }
+  render();
+  RW.on(render);
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-logout]')) { RW.logout(); location.href = 'index.html'; } });
+})();
+</script>
+</body>
+</html>
